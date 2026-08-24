@@ -1,13 +1,15 @@
+# Zurich Assessment - Theng Wei Seng
+
 ### Tech Stacks Used ###
-nodejs version: v24.18.0
-NEXTJS version: 16.3.1
+1. NodeJS version: v24.18.0
+2. NEXTJS version: 16.3.1
 
 
 ### How to setup and run this project? ###
-1. Attach .env file in root folder.
-1. Run "npm ci" in terminal (if node_modules not installed correctly, run "npm install" instead )
-2. Run "npm run dev" to start the app.
-3. Go to browser with url = http://localhost:3000.
+1. Create a `.env` file in the root folder using the values provided separately in email (or via `.env.example` as reference).
+2. Run "npm ci" in terminal (if node_modules not installed correctly, run "npm install" instead )
+3. Run "npm run dev" to start the app.
+4. Go to browser with url = http://localhost:3000.
 
 
 ### COMMANDS ###
