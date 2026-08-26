@@ -1,7 +1,7 @@
 import HomePageView from "@/components/HomePageView/HomePageView"
 import UnauthorizedPageView from "@/components/UnauthorizedPageView/UnauthorizedPageView"
 import { auth } from "@/app/api/auth/[...nextauth]/route"
-import { fetchAllUsers } from "@/actions/userActions"
+import { fetchAllUsers } from "@/services/userServices"
 import { matchUserInitials, maskEmail } from "@/services/utils"
 
 const Home = async () => {

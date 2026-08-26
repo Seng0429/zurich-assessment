@@ -1,39 +1,51 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { User } from '@/constants/types';
+import { fetchUserEmail } from '@/actions/userActions'; // Import the new action
 import styles from './CardGridContainer.module.css';
 
 interface CardGridProps {
     cardList: User[];
 }
 
-const maskEmail = (email: string): string => {
-    const [name, domain] = email.split('@');
-    if (!domain) return '***';
-    const maskedName = name.length > 2 
-        ? name.substring(0, 2) + '***' 
-        : '***';
-    return `${maskedName}@${domain}`;
-};
-
 const CardGridView = (props: CardGridProps) => {
     const { cardList } = props;
 
     const [visibleEmails, setVisibleEmails] = useState<Record<number, boolean>>({});
+    const [fetchedEmails, setFetchedEmails] = useState<Record<number, string>>({});
+    const [loadingIds, setLoadingIds] = useState<Record<number, boolean>>({});
 
-    const toggleEmailVisibility = (id: number) => {
-        setVisibleEmails((prev) => ({
-            ...prev,
-            [id]: !prev[id],
-        }));
+    const handleToggleEmail = async (id: number) => {
+        const isVisible = !!visibleEmails[id];
+
+        if (isVisible) {
+            setVisibleEmails((prev) => ({ ...prev, [id]: false }));
+            return;
+        }
+
+        if (!fetchedEmails[id]) {
+            setLoadingIds((prev) => ({ ...prev, [id]: true }));
+            try {
+                const realEmail = await fetchUserEmail(id);
+                setFetchedEmails((prev) => ({ ...prev, [id]: realEmail }));
+            } catch (error) {
+                console.error("Failed to load full email", error);
+            } finally {
+                setLoadingIds((prev) => ({ ...prev, [id]: false }));
+            }
+        }
+
+        setVisibleEmails((prev) => ({ ...prev, [id]: true }));
     };
 
     return (
         <div className={styles.grid}>
             {cardList?.map((card) => {
                 const isVisible = !!visibleEmails[card.id];
+                const isLoading = !!loadingIds[card.id];
+                const currentEmail = isVisible ? (fetchedEmails[card.id] || card.email) : card.email;
 
                 return (
                     <div key={card.id} className={styles.card}>
@@ -48,14 +60,15 @@ const CardGridView = (props: CardGridProps) => {
                         
                         <div className={styles.emailContainer}>
                             <span className={styles.emailText}>
-                                {isVisible ? card.email : maskEmail(card.email)}
+                                {isLoading ? 'Loading...' : currentEmail}
                             </span>
                             
                             <button 
-                                onClick={() => toggleEmailVisibility(card.id)}
+                                onClick={() => handleToggleEmail(card.id)}
+                                disabled={isLoading}
                                 className={`${styles.toggleButton} ${isVisible ? styles.buttonShown : styles.buttonMasked}`}
                             >
-                                {isVisible ? 'Hide' : 'Show'}
+                                {isLoading ? '...' : (isVisible ? 'Hide' : 'Show')}
                             </button>
                         </div>
                     </div>

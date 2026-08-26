@@ -1,27 +1,24 @@
 'use server'
+import { auth } from '@/app/api/auth/[...nextauth]/route';
 
-import { User } from '@/constants/types';
-
-export async function fetchAllUsers(): Promise<User[]> {
+export const fetchUserEmail = async(id: number): Promise<string> => {
+    const session = await auth();
+    if (!session?.user) {
+        throw new Error('Unauthorized');
+    }
+    
     const apiKey = process.env.REQRES_API_KEY;
-
     if (!apiKey) {
         throw new Error('Server configuration error: REQRES_API_KEY is missing.');
     }
 
     const headers = { 'x-api-key': apiKey, 'Content-Type': 'application/json' };
-    
-    const [resPage1, resPage2] = await Promise.all([
-        fetch('https://reqres.in/api/users?page=1', { method: 'GET', headers, next: { revalidate: 60 } }),
-        fetch('https://reqres.in/api/users?page=2', { method: 'GET', headers, next: { revalidate: 60 } })
-    ]);
+    const res = await fetch(`https://reqres.in/api/users/${id}`, { method: 'GET', headers });
 
-    if (!resPage1.ok || !resPage2.ok) {
-        throw new Error('Failed to fetch user data from external API');
+    if (!res.ok) {
+        throw new Error('Failed to fetch individual user details.');
     }
 
-    const data1 = await resPage1.json();
-    const data2 = await resPage2.json();
-
-    return [...data1.data, ...data2.data];
+    const data = await res.json();
+    return data.data.email;
 }

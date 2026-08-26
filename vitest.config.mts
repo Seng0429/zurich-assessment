@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import path from 'path'
@@ -14,7 +14,7 @@ export default defineConfig({
         reporter: ['text', 'json', 'html']
     },
     alias: {
-      'server-only': path.resolve(__dirname, './src/__mocks__/server-only.ts'),
+      'server-only': path.resolve(import.meta.dirname, './src/__mocks__/server-only.ts'),
     },
   },
 })
