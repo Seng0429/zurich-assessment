@@ -1,16 +1,20 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import path from 'path'
 
 export default defineConfig({
-    plugins: [tsconfigPaths(), react()],
-    test: {
-        environment: 'jsdom',
-        globals: true,
-        setupFiles: ['./vitest.setup.ts'],
-        coverage: {
-            provider: 'v8',
-            reporter: ['text', 'json', 'html']
-        },
+  plugins: [react(), tsconfigPaths()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./vitest.setup.ts'],
+    coverage: {
+        provider: 'v8',
+        reporter: ['text', 'json', 'html']
     },
+    alias: {
+      'server-only': path.resolve(__dirname, './src/__mocks__/server-only.ts'),
+    },
+  },
 })

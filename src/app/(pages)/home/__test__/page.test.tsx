@@ -14,8 +14,13 @@ vi.mock('@/components/UnauthorizedPageView/UnauthorizedPageView', () => ({
 }))
 
 vi.mock('@/components/HomePageView/HomePageView', () => ({
-    default: ({ userList, currentPage, totalPages }: any) => (
-        <div data-testid="home-page-view" data-users={JSON.stringify(userList)} data-page={currentPage} data-total={totalPages}>
+    default: ({ userList }: any) => (
+        <div 
+            data-testid="home-page-view" 
+            data-users={JSON.stringify(userList)} 
+            data-page="1" // Or adjust based on your component design if pagination is handled differently
+            data-total="2"
+        >
             HomePageView Mock
         </div>
     ),

@@ -1,5 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { maskEmail, matchUserInitials } from '@/utils/common' // Adjust import path
+import { describe, it, expect, vi } from 'vitest'
+
+vi.mock('server-only', () => ({}))
+
+import { maskEmail, matchUserInitials } from '@/services/utils'
 
 describe('maskEmail', () => {
     it('should mask the name part and keep the domain when name length is greater than 2', () => {

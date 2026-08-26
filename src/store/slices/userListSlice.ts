@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { UserListInfo } from  '../../constants/types'
+import { User } from '../../constants/types'
 
 export const userListSlice = createSlice({
-  name: 'userList',
-  initialState: {
-      listInfo: null as UserListInfo | null
-  },
-  reducers: {
-      saveUserList: (state, action: PayloadAction<UserListInfo>) => {
-          state.listInfo = action.payload
-      },
-  },
+    name: 'userList',
+    initialState: {
+        users: [] as User[]
+    },
+    reducers: {
+        saveUserList: (state, action: PayloadAction<User[]>) => {
+            state.users = action.payload
+        },
+    },
 })
 
 export const { saveUserList } = userListSlice.actions
