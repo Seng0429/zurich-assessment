@@ -36,8 +36,8 @@ vi.mock('@/components/organisms/Footer/Footer', () => ({
 describe('HomePageView', () => {
     const mockDispatch = vi.fn()
     const mockUsers = [
-        { id: 1, first_name: 'George', last_name: 'Bluth', email: 'george@reqres.in' },
-        { id: 2, first_name: 'Janet', last_name: 'Weaver', email: 'janet@reqres.in' },
+        { id: 1, first_name: 'George', last_name: 'Bluth', email: 'george@reqres.in', avatar: 'https://reqres.in/img/faces/1-image.jpg' },
+        { id: 2, first_name: 'Janet', last_name: 'Weaver', email: 'janet@reqres.in', avatar: 'https://reqres.in/img/faces/2-image.jpg' }
     ]
 
     beforeEach(() => {

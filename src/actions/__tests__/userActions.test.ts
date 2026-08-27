@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { fetchUserEmail } from '../userActions'; // Adjust import path
+import { fetchUserEmail } from '../userActions';
 import { auth } from '@/app/api/auth/[...nextauth]/route';
 
 vi.mock('@/app/api/auth/[...nextauth]/route', () => ({
@@ -19,7 +19,7 @@ describe('fetchUserEmail Server Action', () => {
     });
 
     it('should throw an error if the user is not authenticated', async () => {
-        vi.mocked(auth).mockResolvedValue(null);
+        vi.mocked(auth as any).mockResolvedValue(null);
 
         await expect(fetchUserEmail(1)).rejects.toThrow('Unauthorized');
     });

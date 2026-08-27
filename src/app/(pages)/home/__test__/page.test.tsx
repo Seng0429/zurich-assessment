@@ -44,7 +44,7 @@ describe('Home Page (Server Component)', () => {
     it('should render UnauthorizedPageView when session user is missing', async () => {
         mockSessionValue = null
 
-        const ui = await Home({ searchParams: Promise.resolve({}) })
+        const ui = await Home()
         render(ui)
 
         const unauthorizedPage = await screen.findByTestId('unauthorized-page')
@@ -58,7 +58,7 @@ describe('Home Page (Server Component)', () => {
         const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
         await expect(
-            Home({ searchParams: Promise.resolve({}) })
+            Home()
         ).rejects.toThrow('Server configuration error: REQRES_API_KEY is missing.')
 
         consoleSpy.mockRestore()
@@ -83,7 +83,7 @@ describe('Home Page (Server Component)', () => {
         })
         vi.stubGlobal('fetch', fetchMock)
 
-        const ui = await Home({ searchParams: Promise.resolve({ page: '1' }) })
+        const ui = await Home()
         render(ui)
 
         const homePageView = await screen.findByTestId('home-page-view')
