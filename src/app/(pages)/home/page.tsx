@@ -1,5 +1,5 @@
-import HomePageView from "@/components/HomePageView/HomePageView"
-import UnauthorizedPageView from "@/components/UnauthorizedPageView/UnauthorizedPageView"
+import HomePageView from "@/components/views/HomePageView/HomePageView"
+import UnauthorizedPageView from "@/components/views/UnauthorizedPageView/UnauthorizedPageView"
 import { auth } from "@/app/api/auth/[...nextauth]/route"
 import { fetchAllUsers } from "@/services/userServices"
 import { matchUserInitials, maskEmail } from "@/services/utils"
