@@ -10,7 +10,7 @@ vi.mock('next-auth/react', () => ({
     signOut: vi.fn(),
 }))
 
-vi.mock('@/components/DropDown/DropDown', () => ({
+vi.mock('@/components/molecules/DropDown/DropDown', () => ({
     default: ({ trigger, items }: { trigger: React.ReactNode; items: Array<{ label: string; onClick: () => void; danger?: boolean }> }) => (
         <div data-testid="dropdown-wrapper">
             <div data-testid="dropdown-trigger">{trigger}</div>
@@ -71,7 +71,7 @@ describe('Header Component', () => {
 
         render(<Header />)
 
-        const signOutButton = screen.getByRole('button', { name: 'Sign Out' })
+        const signOutButton = screen.getByRole('button', { name: /sign out/i })
         await user.click(signOutButton)
 
         expect(signOut).toHaveBeenCalledTimes(1)

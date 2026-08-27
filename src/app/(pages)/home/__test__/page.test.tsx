@@ -9,17 +9,19 @@ vi.mock('@/app/api/auth/[...nextauth]/route', () => ({
     auth: vi.fn(async () => mockSessionValue),
 }))
 
-vi.mock('@/components/UnauthorizedPageView/UnauthorizedPageView', () => ({
+// Fix the path to point to views folder
+vi.mock('@/components/views/UnauthorizedPageView/UnauthorizedPageView', () => ({
     default: () => <div data-testid="unauthorized-page">Unauthorized</div>,
 }))
 
-vi.mock('@/components/HomePageView/HomePageView', () => ({
-    default: ({ userList }: any) => (
+// Fix the path to point to views folder
+vi.mock('@/components/views/HomePageView/HomePageView', () => ({
+    default: ({ userList, page, totalPages }: any) => (
         <div 
             data-testid="home-page-view" 
             data-users={JSON.stringify(userList)} 
-            data-page="1" // Or adjust based on your component design if pagination is handled differently
-            data-total="2"
+            data-page={page || "1"} 
+            data-total={totalPages || "2"}
         >
             HomePageView Mock
         </div>

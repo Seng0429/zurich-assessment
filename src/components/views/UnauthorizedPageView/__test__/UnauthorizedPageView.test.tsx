@@ -29,7 +29,7 @@ describe('UnauthorizedPageView Component', () => {
     it('should render unauthorized messages and action button', () => {
         render(<UnauthorizedPageView />)
 
-        expect(screen.getByText('Unauthorized Access')).toBeDefined()
+        expect(screen.getByRole('heading', { name: 'Unauthorized Access' })).toBeDefined()
         expect(screen.getByText('Session expired or you are not logged in.')).toBeDefined()
         expect(screen.getByText('Please log in to access the contents.')).toBeDefined()
         expect(screen.getByRole('button', { name: 'Go to Login' })).toBeDefined()

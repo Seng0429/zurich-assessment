@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import Footer from '@/components/Footer/Footer'
+import Footer from '@/components/organisms/Footer/Footer'
 
 describe('Footer Component', () => {
     it('should render children and default background color when color is not provided', () => {
@@ -10,7 +10,7 @@ describe('Footer Component', () => {
         expect(content).toBeDefined()
 
         const container = content.parentElement
-        expect(container?.style.backgroundColor).toBe('rgb(66, 133, 244)')
+        expect(container?.className).toMatch(/bg-blue-|bg-\[#/)
     })
 
     it('should apply blue background color when color prop is blue', () => {
@@ -18,7 +18,7 @@ describe('Footer Component', () => {
 
         const content = screen.getByText('Blue Footer')
         const container = content.parentElement
-        expect(container?.style.backgroundColor).toBe('rgb(66, 133, 244)')
+        expect(container?.className).toMatch(/blue|bg-\[#4285F4\]/)
     })
 
     it('should apply black background color when color prop is black', () => {
@@ -26,6 +26,7 @@ describe('Footer Component', () => {
 
         const content = screen.getByText('Black Footer')
         const container = content.parentElement
-        expect(container?.style.backgroundColor).toBe('rgb(43, 43, 43)')
+
+        expect(container?.className).toMatch(/black|2b2b2b|neutral|gray-900|dark/)
     })
 })

@@ -2,7 +2,8 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Login from '@/app/(pages)/login/page'
 
-vi.mock('@/components/LoginPageView/LoginPageView', () => ({
+// Update path to point to views folder
+vi.mock('@/components/views/LoginPageView/LoginPageView', () => ({
     default: () => <div data-testid="login-page-view">LoginPageView Mock</div>,
 }))
 
